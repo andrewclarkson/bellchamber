@@ -18,7 +18,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category)
     available = models.BooleanField(default=True)
     description = models.TextField()
-    related = models.ManyToManyField("self")
+    related = models.ManyToManyField("self", null=True, blank=True)
 
     def __str__(self):
         return self.title
