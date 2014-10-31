@@ -8,6 +8,9 @@ class Category(models.Model):
     slug = models.SlugField()
     description = models.TextField()
 
+    def __str__(self):
+        return self.title
+
 
 class Product(models.Model):
     title = models.CharField(max_length=128)
@@ -17,6 +20,8 @@ class Product(models.Model):
     description = models.TextField()
     related = models.ManyToManyField("self")
 
+    def __str__(self):
+        return self.title
 
 class ProductModel(models.Model):
     product = models.ForeignKey(Product)
@@ -28,8 +33,10 @@ class ProductModel(models.Model):
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     color = models.CharField(blank=True, null=True, max_length=32)
 
+    def __str__(self):
+        return self.model
+
 class ProductImage(models.Model):
     product = models.ForeignKey(Product)
     image = models.ImageField()
     caption = models.TextField()
-
