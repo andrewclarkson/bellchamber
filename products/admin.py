@@ -1,8 +1,21 @@
 from django.contrib import admin
 from products.models import Product, ProductImage, ProductModel, Category
 
-admin.site.register(Product)
-admin.site.register(Category)
-admin.site.register(ProductImage)
-admin.site.register(ProductModel)
+class ProductImageInline(admin.StackedInline):
+    model = ProductImage
+    extra = 1
+
+class ProductModelInline(admin.TabularInline):
+    model = ProductModel
+
+class ProductAdmin(admin.ModelAdmin):    
+    inlines = [
+        ProductImageInline,      
+        ProductModelInline        
+    ]
+    prepopulated_fields = {
+        'slug': ('title', ) 
+    }
+
+admin.site.register(Product, ProductAdmin)
 
